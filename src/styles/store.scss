@@ -1,0 +1,19 @@
+.store-wrapper{
+    height: 100%;
+    margin-top: 80px;
+    .filter-panel {
+        width: 200px;
+        padding: 20px;
+    }
+    .shop-content {
+        padding: 20px;
+        margin: auto;
+        .search-bar {
+            align-items: flex-end;
+            padding: 0 15px;
+        }
+    }
+    .card {
+        margin: 15px;
+    }
+}

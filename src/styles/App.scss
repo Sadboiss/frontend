@@ -1,0 +1,108 @@
+@import "./landingPage.scss";
+@import "./index.scss";
+@import "./navigation.scss";
+@import "./store.scss";
+@import "./smallCarousel.scss";
+@import "./filterCheckbox.scss";
+@import "./card.scss";
+
+html, body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;    
+}
+
+.flex-row {
+    display: flex;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-10 {
+    min-width: 10%;
+    max-width: 10%;
+}
+.flex-15 {
+    min-width: 15%;
+    max-width: 15%;
+}
+.flex-20 {
+    min-width: 20%;
+    max-width: 20%;
+}
+.flex-30 {
+    min-width: 30%;
+    max-width: 30%;
+}
+.flex-40 {
+    min-width: 40%;
+    max-width: 40%;
+}
+.flex-50 {
+    min-width: 50%;
+    max-width: 50%;
+}
+.flex-60 {
+    min-width: 60%;
+    max-width: 60%;
+}
+.flex-70 {
+    min-width: 70%;
+    max-width: 70%;
+}
+.flex-75 {
+    min-width: 75%;
+    max-width: 75%;
+}
+.flex-80 {
+    min-width: 80%;
+    max-width: 80%;
+}
+
+.justify-content-space-between {
+    justify-content: space-between;
+}
+.justify-content-space-around {
+    justify-content: space-around;
+}
+.justify-content-start {
+    justify-content: start;
+}
+.justify-content-end {
+    justify-content: end;
+}
+.justify-content-center {
+    justify-content: center;
+}
+.justify-content-center-center {
+    justify-content: center;
+    align-content: center;
+}
+
+.align-content-space-between {
+    align-content: space-between;
+}
+.align-content-space-around {
+    align-content: space-around;
+}
+.align-content-start {
+    align-content: start;
+}
+.align-content-end {
+    align-content: end;
+}
+.align-content-center {
+    align-content: center;
+}
+.align-content-center-center {
+    justify-content: center;
+    align-content: center;
+}
+.cursor {
+    cursor: pointer;
+}
+.container {
+    margin-top: 80px;
+    height: calc(100% - 80px);
+}
