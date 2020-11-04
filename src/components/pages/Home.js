@@ -1,50 +1,44 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col'
-import Button from 'react-bootstrap/Button';
 
 const HomePageBody = () => {
 
 	return (
-		<Container>
-			<Col>
-				{Section1()}
-				{Section2()}
-			</Col>
-		</Container>
+		<div className="home-container">
+			<section id="top">
+				<div className="photo black-box">
+					<img className="photo" src={require("./../../assets/img4.jpg")} alt="This is a sample"/>
+				</div>
+				<div className="info black-box">
+					<h4>Who are we?</h4>
+					<p>
+						Nulla culpa tempor elit do exercitation officia incididunt dolor consectetur labore magna. Quis velit dolor nostrud officia proident fugiat ipsum qui. Aute mollit quis minim enim excepteur magna quis aliqua laborum in ea labore.
+					</p>
+					<p>
+						Ea aliquip magna aliquip ad tempor laboris ea. Pariatur aliqua adipisicing magna Lorem irure veniam laborum fugiat. Nostrud commodo in quis commodo consectetur commodo aliquip amet officia sint magna. Velit aute exercitation velit pariatur minim cillum.
+					</p>
+					<p>
+						Amet enim dolore mollit ea minim ea. Aliquip consectetur tempor deserunt cillum sit reprehenderit deserunt dolor. Et et ut non dolore excepteur. Proident excepteur ad cillum aliqua exercitation irure excepteur consequat Lorem non velit.
+					</p>
+					<button>Contact us</button>
+				</div>
+			</section>
+			<section id="middle">
+				<div className="box"></div>
+				<div className="box"></div>
+			</section>
+			<section id="bottom">
+				<div className="box"></div>
+				<div className="box"></div>
+				<div className="box"></div>
+			</section>
+			<section id="footer">
+				<div className="box"></div>
+				<div className="box"></div>
+				<div className="box"></div>
+			</section>
+		</div>
 	)
 }
 
-const Section1 = () => {
-	return (
-		<Row className="section1 justify-content-md-center">
-			<Col md={8}>
-				<Row className="justify-content-md-center">
-					<h2>Montreal Authenticity</h2>
-				</Row>
-				<Row>
-					<Row className="justify-content-md-center">
-						<Col md={8}>
-							<p>Montreal Authenticity is a collective brand started by a young entrepreneur who enjoys desigining in his free time. Born and raised in Montreal, I fell in love with this beautiful city. The day and night life brings out the most creative aspect off me. That is why I designed this brand, to represent the people in this city and to make exclusive clothing only people from the city will enjoy.</p>
-						</Col>
-						<Col md="auto" className="justify-content-md-center">
-							<Button variant="dark">Get Started</Button>
-						</Col>
-					</Row>
-				</Row>
-			</Col>
-		</Row>
-	)
-}
-
-const Section2 = () => {
-	return (
-		<Row className="justify-content-md-center section2">
-				<Col md={8}>
-				</Col>
-		</Row>
-	)
-}
 
 export default HomePageBody

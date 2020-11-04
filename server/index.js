@@ -1,28 +1,31 @@
 require('dotenv').config();
+const port = process.env.PORT || 5000;
 const express = require('express');
 const bodyParser = require('body-parser');
 const pino = require('express-pino-logger')();
+// const cors = require("cors");
 
 const app = express();
+
+// app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(pino);
 
-app.get('/api/customers', (req, res) => {
+app.get('/', (req, res) => {
+  res.send({ message: "We did it!" });
+});
+
+app.get('/api/users/:id', (req, res) => {
   console.log(req)
   console.log(res)
 });
 
-app.get('/api/customers/:id', (req, res) => {
+app.post('/api/users/authenticate', (req, res) => {
   console.log(req)
   console.log(res)
 });
 
-app.get('/api/customers/auth', (req, res) => {
-  console.log(req.params)
-  console.log(res)
-});
 
-
-app.listen(5000, () =>
-  console.log('Express server is running on localhost:3001')
+app.listen(port, () =>
+  console.log(`Backend is listening on port ${port}`)
 );

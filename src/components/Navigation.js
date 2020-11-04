@@ -1,7 +1,4 @@
 import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import logo from '../assets/first_proto.svg';
@@ -22,21 +19,18 @@ import SignupPage from './pages/Signup';
 function Navigation() {
 	return (
 		<Router>
-			<nav className="navigation flex-row align-content-center">
+			<nav className="navigation flex-row">
 				<div className="logo flex-row justify-content-center-center">
 					<Link to="/"><img role="button" className="cursor" src={logo} alt="" /></Link>
 				</div>
-				<Container fluid>
-					<Row className="menu-container">
-						<Col md="auto">
-							<Link to="/store">Store</Link>
-						</Col>
-					</Row>
-				</Container>
+				<div className="menu-container flex-row align-items-center">
+					<Link to="/store" className="nav-link">Store</Link>
+				</div>
+				<div className="flex"></div>
 				{Utils.isEmpty(localStorage.getItem('user')) ?
-					<div className="menu-sign-in flex-row align-items-center">
-						<Link to="/signup" className="">Signup</Link>
-						<Link to="/login" className="button-themed">Login</Link>
+					<div className="menu-container flex-row align-items-center">
+						<Link to="/signup" className="nav-link">Signup</Link>
+						<Link to="/login" className="nav-link">Login</Link>
 					</div>
 					:
 					<>
