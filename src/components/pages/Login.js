@@ -8,10 +8,6 @@ function Login(props) {
 	const [email, setEmail] = useState("test1@gmail.com");
 	const [password, setPassword] = useState("123");
 
-	useEffect(() => {
-		props.dispatch(userActions.logout());
-	});
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		

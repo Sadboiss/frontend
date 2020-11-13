@@ -23,7 +23,7 @@ function login(email, password) {
 		.then(handleResponse)
 		.then(response => {
 			const user = response.data;
-			if (user.token) {
+			if (user.jwtToken) {
 				localStorage.setItem('user', JSON.stringify(user));
 			}
 			return user;

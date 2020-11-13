@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import logo from '../assets/first_proto.svg';
@@ -15,16 +16,13 @@ import StorePage from './pages/Store';
 import CartPage from './pages/Cart';
 import LoginPage from './pages/Login';
 import SignupPage from './pages/Signup';
-
-//import { userActions } from '../actions';
+import { userActions } from '../actions';
 
 const Navigation = (props) => {
-	useEffect(() => {
-		//props.dispatch(userActions.getAll());
-	});
-
-	//const { user } = props;
-
+	const handleLogout = () => {
+        props.dispatch(userActions.logout());  
+	}
+	
 	return (
 		<Router>
 			<nav className="navigation flex-row">
@@ -52,7 +50,7 @@ const Navigation = (props) => {
 								<DropdownButton id="dropdown-basic-button" title="a" >
 									<Dropdown.Item href="#/action-1">Action</Dropdown.Item>
 									<Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-									<Dropdown.Item href="#/action-3" onClick={() => { }}>Logout</Dropdown.Item>
+									<Dropdown.Item href="#/action-3" onClick={() => handleLogout()}>Logout</Dropdown.Item>
 								</DropdownButton>
 							</div>
 						</div>
@@ -69,5 +67,14 @@ const Navigation = (props) => {
 		</Router>
 	);
 }
-export default Navigation;
+
+const mapStateToProps = (state) => {
+	console.log(state)
+	const { loggedIn } = state.authentication;
+	return {
+		loggedIn
+	};
+}
+
+export default connect(mapStateToProps)(Navigation);
 
