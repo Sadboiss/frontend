@@ -1,14 +1,11 @@
-import React, { useState } from "react"
+import React from "react"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/App.scss';
 import Navigation from "./components/Navigation";
-import { AuthContext } from "./context/auth";
 
-function App(props) {
+const App = (props) => {
   return (
-    <AuthContext.Provider value={false}>
-      <Navigation />
-    </AuthContext.Provider>
+    <Navigation />
   );
 }
 

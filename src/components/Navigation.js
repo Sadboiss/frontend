@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import logo from '../assets/first_proto.svg';
@@ -16,7 +16,15 @@ import CartPage from './pages/Cart';
 import LoginPage from './pages/Login';
 import SignupPage from './pages/Signup';
 
-function Navigation() {
+//import { userActions } from '../actions';
+
+const Navigation = (props) => {
+	useEffect(() => {
+		//props.dispatch(userActions.getAll());
+	});
+
+	//const { user } = props;
+
 	return (
 		<Router>
 			<nav className="navigation flex-row">
