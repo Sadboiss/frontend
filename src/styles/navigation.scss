@@ -39,21 +39,6 @@
     .logged-in {
         min-width: 200px;
         justify-content: center;
-
-        .dropdown {
-            button 
-            {
-                color: #000000;
-                background-color: #ffffff;
-                border-radius: 50%;
-                width: 50px;
-                height: 50px;    
-                font-weight: bold;
-            }
-            button::after {
-                display: none;
-            }
-        }
         .circle {
             width: 50px;
             height: 50px;

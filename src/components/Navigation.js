@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState} from 'react';
 import { connect } from 'react-redux';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import logo from '../assets/first_proto.svg';
 import Utils from '../utilities/utils';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -19,10 +20,13 @@ import SignupPage from './pages/Signup';
 import { userActions } from '../actions';
 
 const Navigation = (props) => {
+
+	const [user] = useState(JSON.parse(localStorage.getItem('user')));
+
 	const handleLogout = () => {
-        props.dispatch(userActions.logout());  
+		props.dispatch(userActions.logout());
 	}
-	
+
 	return (
 		<Router>
 			<nav className="navigation flex-row">
@@ -33,7 +37,7 @@ const Navigation = (props) => {
 					<Link to="/store" className="nav-link">Store</Link>
 				</div>
 				<div className="flex"></div>
-				{Utils.isEmpty(localStorage.getItem('user')) ?
+				{!user ?
 					<div className="menu-container flex-row align-items-center">
 						<Link to="/signup" className="nav-link">Signup</Link>
 						<Link to="/login" className="nav-link">Login</Link>
@@ -47,7 +51,7 @@ const Navigation = (props) => {
 								</h3>
 							</Link>
 							<div className="logged-in flex-row align-items-center">
-								<DropdownButton id="dropdown-basic-button" title="a" >
+								<DropdownButton as={ButtonGroup} title={user.firstName}>
 									<Dropdown.Item href="#/action-1">Action</Dropdown.Item>
 									<Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
 									<Dropdown.Item href="#/action-3" onClick={() => handleLogout()}>Logout</Dropdown.Item>
