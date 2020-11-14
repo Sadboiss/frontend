@@ -9,6 +9,7 @@ const instance = axios.create({
 
 export const userService = {
 	login,
+	signup,
 	logout,
 	getAll
 };
@@ -33,8 +34,19 @@ function login(email, password) {
 		})
 }
 
+function signup(params) {
+	return instance.post(`/users/account-creation`, params)
+		.then(handleResponse)
+		.then(response => {
+			const user = response.data;
+			return login(user.email, user.password)
+		})
+		.catch((error) => {
+			return Promise.reject()
+		})
+}
+
 function logout() {
-	// remove user from local storage to log user out
 	localStorage.removeItem('user');
 }
 

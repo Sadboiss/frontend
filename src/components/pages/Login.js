@@ -1,21 +1,21 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Form from 'react-bootstrap/Form';
 import { connect } from 'react-redux';
 import { userActions } from '../../actions';
 
-function Login(props) {
+const Login = (props) => {
 	const [email, setEmail] = useState("test1@gmail.com");
 	const [password, setPassword] = useState("123");
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		
-        const { dispatch } = props;
-        if (email && password) {
-            dispatch(userActions.login(email, password));
-        }
-    }
+
+		const { dispatch } = props;
+		if (email && password) {
+			dispatch(userActions.login(email, password));
+		}
+	}
 
 	return (
 		<div className="flex-row form-container">
@@ -37,7 +37,7 @@ function Login(props) {
 	)
 }
 const mapStateToProps = (state) => {
-	
+
 	const { loggingIn } = state.authentication;
 	return {
 		loggingIn

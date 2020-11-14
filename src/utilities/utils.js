@@ -11,6 +11,13 @@ const Utils = createReactClass({
 				if (hasOwnProperty.call(obj, key)) return false;
 			}
 			return true;
+		},
+		hasNull: function (obj) {
+			for (var key in obj) {
+				if (obj[key] == null)
+					return true;
+			}
+			return false;
 		}
 	},
 	render() {

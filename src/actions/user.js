@@ -2,48 +2,71 @@ import { userConstants } from '../constants/user';
 import { userService } from '../services/user';
 
 const login = (email, password) => {
-    return dispatch => {
-        dispatch(request({ email }));
+	return dispatch => {
+		dispatch(request({ email }));
 
-        userService.login(email, password)
-            .then(
-                user => { 
-                    dispatch(success(user));
-                },
-                error => {
-                    dispatch(failure(error));
-                }
-            );
-    };
+		userService.login(email, password)
+			.then(
+				user => {
+					dispatch(success(user));
+				},
+				error => {
+					dispatch(failure(error));
+				}
+			);
+	};
 
-    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
-    function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
-    function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+	function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
+	function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
+	function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+}
+
+const signup = (params) => {
+	console.log(userConstants.SIGNUP_REQUEST)
+	return dispatch => {
+		dispatch(request(params));
+
+		userService.signup(params)
+			.then(
+				user => {
+					dispatch(success(user));
+				},
+				error => {
+					dispatch(failure(error));
+				}
+			);
+	};
+	
+
+	function request(params) { return { type: userConstants.SIGNUP_REQUEST, params } }
+	function success(params) { return { type: userConstants.SIGNUP_SUCCESS, params } }
+	function failure(error) { return { type: userConstants.SIGNUP_FAILURE, error } }
 }
 
 const logout = () => {
-    userService.logout();
-    return { type: userConstants.LOGOUT };
+	userService.logout();
+	return { type: userConstants.LOGOUT };
 }
 
 const getAll = () => {
-    return dispatch => {
-        dispatch(request());
+	return dispatch => {
+		dispatch(request());
 
-        userService.getAll()
-            .then(
-                users => dispatch(success(users)),
-                error => dispatch(failure(error))
-            );
-    };
+		userService.getAll()
+			.then(
+				users => dispatch(success(users)),
+				error => dispatch(failure(error))
+			);
+	};
 
-    function request() { return { type: userConstants.GETALL_REQUEST } }
-    function success(users) { return { type: userConstants.GETALL_SUCCESS, users } }
-    function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
+	function request() { return { type: userConstants.GETALL_REQUEST } }
+	function success(users) { return { type: userConstants.GETALL_SUCCESS, users } }
+	function failure(error) { return { type: userConstants.GETALL_FAILURE, error } }
 }
 
 export const userActions = {
-    login,
-    logout,
-    getAll
+	login,
+	signup,
+	logout,
+	getAll
 };

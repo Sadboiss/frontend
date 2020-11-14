@@ -69,7 +69,6 @@ const Navigation = (props) => {
 }
 
 const mapStateToProps = (state) => {
-	console.log(state)
 	const { loggedIn } = state.authentication;
 	return {
 		loggedIn
