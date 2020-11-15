@@ -40,5 +40,4 @@ const HomePageBody = () => {
 	)
 }
 
-
 export default HomePageBody

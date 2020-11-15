@@ -21,7 +21,7 @@ function login(email, password) {
 	};
 
 	return instance.post(`/users/authenticate`, params)
-		.then(handleResponse)
+		//.then(handleResponse)
 		.then(response => {
 			const user = response.data;
 			if (user.jwtToken) {
@@ -30,19 +30,19 @@ function login(email, password) {
 			return user;
 		})
 		.catch((error) => {
-			return Promise.reject()
+			return Promise.reject(error.response.data.message)
 		})
 }
 
 function signup(params) {
 	return instance.post(`/users/account-creation`, params)
-		.then(handleResponse)
+		//.then(handleResponse)
 		.then(response => {
 			const user = response.data;
-			return login(user.email, user.password)
+			login(user.email, user.password)
 		})
 		.catch((error) => {
-			return Promise.reject()
+			return Promise.reject(error.response.data.message)
 		})
 }
 
@@ -51,13 +51,22 @@ function logout() {
 }
 
 function getAll() {
-	return instance.get(`/users`).then(handleResponse);
+	return instance.get(`/users`)
+	//.then(handleResponse);
+	.then(response => {
+		console.log(response)
+	})
+	.catch((error) => {
+		return Promise.reject(error.response.data.message)
+	})
 }
 
-function handleResponse(response) {
-	if(response.status !== 200) {
-		logout();
-		throw new Error(response.statusText);
-	}
-	return response;
-}
+// function handleResponse(response) {
+// 	console.log("dasadada")
+// 	if(response.status !== 200) {
+// 		console.log(response)
+// 		logout();
+// 		throw new Error(response.statusText);
+// 	}
+// 	return response;
+// }

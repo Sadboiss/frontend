@@ -1,34 +1,20 @@
-import React, { useEffect, useState} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import logo from '../assets/first_proto.svg';
-import Utils from '../utilities/utils';
-import { FaShoppingCart, FaUser } from 'react-icons/fa';
-import {
-	BrowserRouter as Router,
-	Switch,
-	Route,
-	Link
-} from "react-router-dom";
-import HomePage from './pages/Home';
-import StorePage from './pages/Store';
-import CartPage from './pages/Cart';
-import LoginPage from './pages/Login';
-import SignupPage from './pages/Signup';
+import { FaShoppingCart } from 'react-icons/fa';
+import { Link } from "react-router-dom";
 import { userActions } from '../actions';
 
 const Navigation = (props) => {
-
-	const [user] = useState(JSON.parse(localStorage.getItem('user')));
-
 	const handleLogout = () => {
 		props.dispatch(userActions.logout());
 	}
 
 	return (
-		<Router>
+		<>
 			<nav className="navigation flex-row">
 				<div className="logo flex-row justify-content-center-center">
 					<Link to="/"><img role="button" className="cursor" src={logo} alt="" /></Link>
@@ -37,7 +23,7 @@ const Navigation = (props) => {
 					<Link to="/store" className="nav-link">Store</Link>
 				</div>
 				<div className="flex"></div>
-				{!user ?
+				{!props.loggedIn ?
 					<div className="menu-container flex-row align-items-center">
 						<Link to="/signup" className="nav-link">Signup</Link>
 						<Link to="/login" className="nav-link">Login</Link>
@@ -51,31 +37,25 @@ const Navigation = (props) => {
 								</h3>
 							</Link>
 							<div className="logged-in flex-row align-items-center">
-								<DropdownButton as={ButtonGroup} title={user.firstName}>
-									<Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-									<Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-									<Dropdown.Item href="#/action-3" onClick={() => handleLogout()}>Logout</Dropdown.Item>
+								<DropdownButton as={ButtonGroup} title={props.user.firstName}>
+									<Dropdown.Item >Action</Dropdown.Item>
+									<Dropdown.Item >Another action</Dropdown.Item>
+									<Dropdown.Item onClick={() => handleLogout()}>Logout</Dropdown.Item>
 								</DropdownButton>
 							</div>
 						</div>
 					</>
 				}
 			</nav>
-			<Switch>
-				<Route exact path="/store" render={() => <StorePage />} />
-				<Route exact path="/" render={() => <HomePage />} />
-				<Route exact path="/cart" render={() => <CartPage />} />
-				<Route exact path="/login" render={() => <LoginPage />} />
-				<Route exact path="/signup" render={() => <SignupPage />} />
-			</Switch>
-		</Router>
+		</>
 	);
 }
 
 const mapStateToProps = (state) => {
-	const { loggedIn } = state.authentication;
+	const { loggedIn, user } = state.authentication;
 	return {
-		loggedIn
+		loggedIn,
+		user
 	};
 }
 

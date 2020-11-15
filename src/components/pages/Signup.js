@@ -17,7 +17,7 @@ const Signup = (props) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const { dispatch } = props;
+		const { signup } = props;
 		const params = {
 			firstName,
 			lastName,
@@ -29,11 +29,13 @@ const Signup = (props) => {
 			phone
 		}
 		if (!Utils.hasNull(params)) {
-			dispatch(userActions.signup(params));
+			signup(params);
 		}
 	}
 	return (
 		<div className="flex-row form-container">
+			
+			{props.created ? "Account was created with success" : ""}
 			<Form onSubmit={(e) => handleSubmit(e)}>
 				<Form.Row>
 					<Form.Group as={Col} controlId="formGridFirstName">
@@ -92,10 +94,18 @@ const Signup = (props) => {
 }
 
 const mapStateToProps = (state) => {
-	const { accountCreation } = state.accountCreation;
+	const { created, user, error } = state.signup;
 	return {
-		accountCreation
+		created,
+		user,
+		error
 	};
 }
 
-export default connect(mapStateToProps)(Signup);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		signup: (params) => dispatch(userActions.signup(params)),
+	}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

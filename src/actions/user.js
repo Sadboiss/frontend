@@ -1,5 +1,6 @@
 import { userConstants } from '../constants/user';
 import { userService } from '../services/user';
+import { history } from '../helpers';
 
 const login = (email, password) => {
 	return dispatch => {
@@ -9,6 +10,7 @@ const login = (email, password) => {
 			.then(
 				user => {
 					dispatch(success(user));
+					history.push('/');
 				},
 				error => {
 					dispatch(failure(error));
@@ -21,12 +23,11 @@ const login = (email, password) => {
 	function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 }
 
-const signup = (params) => {
-	console.log(userConstants.SIGNUP_REQUEST)
+const signup = (user) => {
 	return dispatch => {
-		dispatch(request(params));
+		dispatch(request(user));
 
-		userService.signup(params)
+		userService.signup(user)
 			.then(
 				user => {
 					dispatch(success(user));
@@ -38,8 +39,8 @@ const signup = (params) => {
 	};
 	
 
-	function request(params) { return { type: userConstants.SIGNUP_REQUEST, params } }
-	function success(params) { return { type: userConstants.SIGNUP_SUCCESS, params } }
+	function request(user) { return { type: userConstants.SIGNUP_REQUEST, user } }
+	function success(user) { return { type: userConstants.SIGNUP_SUCCESS, user } }
 	function failure(error) { return { type: userConstants.SIGNUP_FAILURE, error } }
 }
 
