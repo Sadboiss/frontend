@@ -12,19 +12,18 @@ import LoginPage from './components/pages/Login';
 import SignupPage from './components/pages/Signup';
 
 const App = (props) => {
-  return (
-		<Router history={history}>
-      <Navigation />
-      
+	return (
+		<Router forceRefresh={true}>
+			<Navigation />
 			<Switch>
-        <PrivateRoute exact path="/" component={HomePage} />
-        <Route exact path="/store" render={() => <StorePage />} />
+				<Route exact path="/" render={() => <HomePage />} />
+				<Route exact path="/store" render={() => <StorePage />} />
 				<Route exact path="/cart" render={() => <CartPage />} />
 				<Route exact path="/login" render={() => <LoginPage />} />
 				<Route exact path="/signup" render={() => <SignupPage />} />
 			</Switch>
 		</Router>
-  );
+	);
 }
 
 export default App;

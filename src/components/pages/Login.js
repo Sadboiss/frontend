@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
 import { userActions } from '../../actions';
+import { Redirect } from "react-router-dom";
 
 const Login = (props) => {
 	const [email, setEmail] = useState("test1@gmail.com");
@@ -12,9 +13,9 @@ const Login = (props) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		const { dispatch } = props;
+		const { login } = props;
 		if (email && password) {
-			dispatch(userActions.login(email, password));
+			login(email, password);
 		}
 	}
 
@@ -41,6 +42,7 @@ const Login = (props) => {
 		</>
 	)
 }
+
 const mapStateToProps = (state) => {
 
 	const { loggingIn, error } = state.authentication;
@@ -50,4 +52,10 @@ const mapStateToProps = (state) => {
 	};
 }
 
-export default connect(mapStateToProps)(Login);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		login: (email, password) => dispatch(userActions.login(email, password)),
+	}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

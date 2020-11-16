@@ -10,7 +10,8 @@ import { userActions } from '../actions';
 
 const Navigation = (props) => {
 	const handleLogout = () => {
-		props.dispatch(userActions.logout());
+		const { logout } = props;
+		logout();
 	}
 
 	return (
@@ -59,5 +60,11 @@ const mapStateToProps = (state) => {
 	};
 }
 
-export default connect(mapStateToProps)(Navigation);
+const mapDispatchToProps = (dispatch) => {
+	return {
+		logout: () => dispatch(userActions.logout()),
+	}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
 
