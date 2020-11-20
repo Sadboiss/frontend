@@ -4,7 +4,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
 import { userActions } from '../../actions';
-import { Redirect } from "react-router-dom";
 
 const Login = (props) => {
 	const [email, setEmail] = useState("test1@gmail.com");

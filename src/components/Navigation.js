@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Dropdown from 'react-bootstrap/Dropdown';
+//import Dropdown from 'react-bootstrap/Dropdown';
+import { Dropdown } from 'semantic-ui-react';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import logo from '../assets/first_proto.svg';
@@ -32,11 +33,16 @@ const Navigation = (props) => {
 					:
 					<>
 						<div className="menu-icons flex-row">
-							<Link to="/cart">
-								<h3 className="cart-btn">
-									<FaShoppingCart />
-								</h3>
-							</Link>
+							<h3 className="cart-btn">
+								<Dropdown icon={<FaShoppingCart />}>
+									<Dropdown.Menu>
+										<Dropdown.Item text='New' />
+										<Dropdown.Item text='Open...' description='ctrl + o' />
+										<Dropdown.Item icon='trash' text='Move to trash' />
+										<Dropdown.Item text={<Link to="/cart">See All</Link>} />
+									</Dropdown.Menu>
+								</Dropdown>
+							</h3>
 							<div className="logged-in flex-row align-items-center">
 								<DropdownButton as={ButtonGroup} title={props.user.firstName}>
 									<Dropdown.Item >Action</Dropdown.Item>

@@ -17,7 +17,7 @@ module.exports = {
 				}
 			},
 			{
-				test: /\.(gif|svg|jpg|png|jpeg|gif)$/,
+				test: /\.(gif|jpg|png|jpeg|gif|ttf|eot|woff(2)?)$/,
 				use: {
 					loader: "file-loader",
 					options: {
@@ -29,11 +29,23 @@ module.exports = {
 			{
 				test: /\.html$/,
 				use: ["html-loader"]
-			}
+			},
+			{
+				test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+				use: [
+				  {
+					loader: 'file-loader',
+					options: {
+					  name: '[name].[ext]',
+					  outputPath: 'fonts'
+					}
+				  }
+				]
+			  }
 		]
 	},
 	plugins: [
-		
+
 
 	],
 	externals: {
