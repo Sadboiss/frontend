@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 //import Dropdown from 'react-bootstrap/Dropdown';
 import { Dropdown } from 'semantic-ui-react';
@@ -7,9 +7,14 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import logo from '../assets/first_proto.svg';
 import { FaShoppingCart } from 'react-icons/fa';
 import { Link } from "react-router-dom";
-import { userActions } from '../actions';
+import { userActions, cartActions } from '../actions';
 
 const Navigation = (props) => {
+
+	useEffect(() => {
+		props.getCart();
+	}, [])
+
 	const handleLogout = () => {
 		const { logout } = props;
 		logout();
@@ -36,7 +41,7 @@ const Navigation = (props) => {
 							<h3 className="cart-btn">
 								<Dropdown icon={<FaShoppingCart />}>
 									<Dropdown.Menu>
-										<Dropdown.Item text='New' />
+										<Dropdown.Item text={`Cart Items: ${props.item.cartItems.count}`} />
 										<Dropdown.Item text='Open...' description='ctrl + o' />
 										<Dropdown.Item icon='trash' text='Move to trash' />
 										<Dropdown.Item text={<Link to="/cart">See All</Link>} />
@@ -60,15 +65,19 @@ const Navigation = (props) => {
 
 const mapStateToProps = (state) => {
 	const { loggedIn, user } = state.authentication;
+	const { item } = state.cart;
+	console.log(item)
 	return {
 		loggedIn,
-		user
+		user,
+		item,
 	};
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
 		logout: () => dispatch(userActions.logout()),
+		getCart: ()  => dispatch(cartActions.getCart())
 	}
 };
 
