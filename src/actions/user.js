@@ -10,7 +10,8 @@ const login = (email, password) => {
 			.then(
 				user => {
 					dispatch(success(user));
-					history.push('/');
+					history.push('/store');
+					history.go(0);
 				},
 				error => {
 					dispatch(failure(error));
@@ -46,6 +47,8 @@ const signup = (user) => {
 
 const logout = () => {
 	userService.logout();
+	history.push('/');
+	history.go(0);
 	return { type: userConstants.LOGOUT };
 }
 

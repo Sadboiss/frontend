@@ -27,6 +27,15 @@ const Store = (props) => {
 
     useEffect(() => {
         props.getAll();
+        let socket = new WebSocket('ws://localhost:5000');
+        console.log('WebSocket - status ' + socket.readyState);
+        socket.onopen = function (event) {
+            console.log('connection has been opened.')
+        }
+        socket.onclose = function (event) {
+            console.log(event)
+            console.log('connection has been closed.')
+        }
     }, [])
 
     return (
@@ -66,30 +75,6 @@ const Store = (props) => {
                         <p>Nothing in store</p>
                     }
                 </div>
-                {/* <div className="item-row flex-row">
-                    <MACard />
-                    <MACard />
-                    <MACard />
-                    <MACard />
-                </div>
-                <div className="item-row flex-row">
-                    <MACard />
-                    <MACard />
-                    <MACard />
-                    <MACard />
-                </div>
-                <div className="item-row flex-row">
-                    <MACard />
-                    <MACard />
-                    <MACard />
-                    <MACard />
-                </div>
-                <div className="item-row flex-row">
-                    <MACard />
-                    <MACard />
-                    <MACard />
-                    <MACard />
-                </div> */}
             </div>
         </div>
     )

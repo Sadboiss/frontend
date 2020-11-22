@@ -2,49 +2,16 @@
     width: 100%;
     box-shadow: 0 2px 2px 0 #f0f0f0;
     background: #000000;
-    z-index: 9999;
-    .menu-container {
-        a {
-            text-decoration: none;
-            font-weight: bold; 
-            line-height: 16px;
-            color: #ffffff !important;
-        }
-        a:hover {
-            opacity: 0.6;
-            text-decoration: none;
-            font-weight: bold; 
-        }
-    }
-
-    .logo {
-        width: 10%;
-        align-items: center;
-        img {
-            width: 80px;
-            height: 60px;
-            margin: auto;
-        }
-    }
-
-    .menu-icons {
-        h3 {
-            line-height: 80px;
-        }
-    }
-    .cart-btn {
+    display: flex;
+    align-items: center;
+    i, .nav-link {
         color: #ffffff;
     }
-
-    .logged-in {
-        min-width: 200px;
-        justify-content: center;
-        .circle {
-            width: 50px;
-            height: 50px;
-            border-radius: 30px;
-            background-color: #000000;
-        }
+    a {
+        font-weight: 500;
+    }
+    .logo {
+        font-size: x-large;
     }
 }
 

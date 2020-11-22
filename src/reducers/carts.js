@@ -8,12 +8,26 @@ export function carts(state = {}, action) {
       };
     case cartConstants.GET_ITEMS_SUCCESS:
       return {
-        item: action.item
+        cart: action.cart
       };
     case cartConstants.GET_ITEMS_FAILURE:
-      return { 
+      return {
         error: action.error
       };
+    case cartConstants.ADD_REQUEST:
+      return {
+        addingToCart: true
+      };
+    case cartConstants.ADD_SUCCESS:
+      return {
+        addedToCart: true,
+      };
+    case cartConstants.ADD_FAILURE:
+      return {
+        addedToCart: false,
+        error: action.error
+      };
+
     default:
       return state
   }
