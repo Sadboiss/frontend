@@ -18,8 +18,7 @@ function addToCart(product) {
 		.then(response => {
 			return response.data;
 		})
-		.finally(() => {
-			//window.location.reload()
+		.then(() => {
 			toast.success('Added item to your cart!', {
 				position: "bottom-right",
 				autoClose: 400000,
@@ -30,6 +29,10 @@ function addToCart(product) {
 				progress: 0,
 			});
 		})
+		.finally(() => {
+			//window.location.reload()
+			getCart();
+		})
 		.catch(error => {
 			return Promise.reject(error.response.data.message)
 		})
@@ -38,7 +41,11 @@ function addToCart(product) {
 function getCart() {
 	return instance.get(`/shoppingcarts/${JSON.parse(localStorage.getItem('user')).id}`)
 		.then(response => {
-			return response.data;
+			let cart = response.data;
+			if(cart) {
+				localStorage.setItem('cart', JSON.stringify(cart));
+			}
+			return cart
 		})
 		.catch(error => {
 			return Promise.reject(error.response.data.message)

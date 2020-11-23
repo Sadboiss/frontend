@@ -1,72 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import FilterCheckbox from '../FilterCheckbox';
+import React, { useEffect } from 'react';
 import Card from '../Card';
 import { connect } from 'react-redux';
 import { productActions } from '../../actions';
-
-const Filters = [
-    //Size
-    { name: "XS", type: "size", value: "xs" },
-    { name: "S", type: "size", value: "s" },
-    { name: "M", type: "size", value: "m" },
-    { name: "L", type: "size", value: "l" },
-    { name: "XL", type: "size", value: "xl" },
-    //Gender
-    { name: "Male", type: "gender", value: "male" },
-    { name: "Female", type: "gender", value: "female" },
-    //Price
-    { name: "$", type: "price", value: "0, 20" },
-    { name: "$$", type: "price", value: "20, 50" },
-    { name: "$$$", type: "price", value: "50, 100" },
-];
+import { Loader } from 'semantic-ui-react';
+import './Store.scss';
 
 const Store = (props) => {
-    let size = Filters.filter(f => { return f.type === 'size' })
-    let gender = Filters.filter(f => { return f.type === 'gender' })
-    let price = Filters.filter(f => { return f.type === 'price' })
-
     useEffect(() => {
         props.getAll();
-        let socket = new WebSocket('ws://localhost:5000');
-        console.log('WebSocket - status ' + socket.readyState);
-        socket.onopen = function (event) {
-            console.log('connection has been opened.')
-        }
-        socket.onclose = function (event) {
-            console.log(event)
-            console.log('connection has been closed.')
-        }
     }, [])
 
     return (
-        <div className="store-wrapper flex-row">
-            <div className="flex-column filter-panel">
-                <div className="flex-column section">
-                    <h3>Size</h3>
-                    {size.map((filter, index) => {
-                        return <FilterCheckbox key={index} filter={filter} />
-                    })}
+        <>
+            <Loader active={props.loading} inline="centered" />
+            <div className="wrapper">
+                <div className="filters">
+                    
                 </div>
-                <br />
-                <div className="flex-column">
-                    <h3>Gender</h3>
-                    {gender.map((filter, index) => {
-                        return <FilterCheckbox key={index} filter={filter} />
-                    })}
-                </div>
-                <br />
-                <div className="flex-column">
-                    <h3>Price</h3>
-                    {price.map((filter, index) => {
-                        return <FilterCheckbox key={index} filter={filter} />
-                    })}
-                </div>
-            </div>
-            <div className="shop-content flex-column">
-                <div className="flex-row search-bar">
-                    <input type="text" placeholder="Search" />
-                </div>
-                <div className="item-row flex-row">
+                <div className="products">
                     {props.items ?
                         props.items.map((product, index) => {
                             return <Card product={product} key={index} />
@@ -76,13 +27,12 @@ const Store = (props) => {
                     }
                 </div>
             </div>
-        </div>
+        </>
     )
 
 }
 
 const mapStateToProps = (state) => {
-
     const { loading, items, error } = state.products;
     return {
         loading,

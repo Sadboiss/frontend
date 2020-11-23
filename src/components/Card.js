@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import BCard from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux';
 import placeholder from '../assets/placeholder.jpeg';
 import { cartActions } from '../actions';
+import './Card.scss';
 
 const Card = (props) => {
 

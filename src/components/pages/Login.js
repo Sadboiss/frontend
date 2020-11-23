@@ -1,9 +1,9 @@
 
 import React, { useState } from "react";
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { Form, Button, Checkbox } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { userActions } from '../../actions';
+import { userActions, cartActions } from '../../actions';
+import './Login.scss'
 
 const Login = (props) => {
 	const [email, setEmail] = useState("test1@gmail.com");
@@ -12,30 +12,30 @@ const Login = (props) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		const { login } = props;
+		const { login, getCart } = props;
 		if (email && password) {
 			login(email, password);
+			getCart();
 		}
 	}
 
 	return (
 		<>
 			<p>{props.error}</p>
-
-			<div className="flex-row form-container">
+			<div className="flex-row login">
 				<Form>
-					<Form.Group controlId="formGroupEmail">
-						<Form.Label>Email address</Form.Label>
-						<Form.Control name="email" type="email" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value) }} />
-					</Form.Group>
-					<Form.Group controlId="formGroupPassword">
-						<Form.Label>Password</Form.Label>
-						<Form.Control name="password" type="password" placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value) }} />
-					</Form.Group>
-					<Form.Group id="formGridCheckbox">
-						<Form.Check type="checkbox" variant="dark" label="Remember me" />
-					</Form.Group>
-					<Button onClick={(e) => handleSubmit(e)}>Login</Button>
+					<Form.Field>
+						<label>Email</label>
+						<input placeholder='Email' value={email} onChange={(e) => { setEmail(e.target.value) }} />
+					</Form.Field>
+					<Form.Field>
+						<label>Password</label>
+						<input placeholder='Password' value={password} onChange={(e) => { setPassword(e.target.value) }} />
+					</Form.Field>
+					<Form.Field>
+						<Checkbox label='Remember me' />
+					</Form.Field>
+					<Button secondary type='submit' onClick={(e) => handleSubmit(e)}>Submit</Button>
 				</Form>
 			</div>
 		</>
@@ -54,6 +54,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		login: (email, password) => dispatch(userActions.login(email, password)),
+		getCart: () => dispatch(cartActions.getCart())
 	}
 };
 

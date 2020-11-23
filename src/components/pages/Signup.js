@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
+import { Form, Button, Checkbox } from 'semantic-ui-react';
 import Utils from '../../utilities/utils';
 import { connect } from 'react-redux';
 import { userActions } from '../../actions';
@@ -33,61 +32,44 @@ const Signup = (props) => {
 		}
 	}
 	return (
-		<div className="flex-row form-container">
-			
-			{props.created ? "Account was created with success" : ""}
-			<Form onSubmit={(e) => handleSubmit(e)}>
-				<Form.Row>
-					<Form.Group as={Col} controlId="formGridFirstName">
-						<Form.Label>First Name</Form.Label>
-						<Form.Control name="firstName" type="text" placeholder="First Name" value={firstName} onChange={(e) => { setFirstName(e.target.value) }} />
-					</Form.Group>
-
-					<Form.Group as={Col} controlId="formGridLastName">
-						<Form.Label>Last Name</Form.Label>
-						<Form.Control name="lastName" type="text" placeholder="Last Name" value={lastName} onChange={(e) => { setLastName(e.target.value) }}/>
-					</Form.Group>
-				</Form.Row>
-				<Form.Row>
-					<Form.Group as={Col} controlId="formGridEmail">
-						<Form.Label>Email</Form.Label>
-						<Form.Control name="email" type="email" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value) }}/>
-					</Form.Group>
-
-					<Form.Group as={Col} controlId="formGridPassword">
-						<Form.Label>Password</Form.Label>
-						<Form.Control type="password" placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value) }}/>
-					</Form.Group>
-				</Form.Row>
-
-				<Form.Group controlId="formGridStreetName">
-					<Form.Label>Street Name</Form.Label>
-					<Form.Control name="streetName" type="text" placeholder="Street name" value={streetName} onChange={(e) => { setStreetName(e.target.value) }}/>
-				</Form.Group>
-
-				<Form.Row>
-					<Form.Group as={Col} controlId="formGridCivicNumber">
-						<Form.Label>Civic Number</Form.Label>
-						<Form.Control name="civicNumber" type="text" placeholder="Civic number" value={civicNumber} onChange={(e) => { setCivicNumber(e.target.value) }}/>
-					</Form.Group>
-
-					<Form.Group as={Col} controlId="formGridZip">
-						<Form.Label>Zip code</Form.Label>
-						<Form.Control name="zipCode" type="text" placeholder="Zip code" value={zipCode} onChange={(e) => { setZipCode(e.target.value) }}/>
-					</Form.Group>
-				</Form.Row>
-
-				<Form.Row>
-					<Form.Group as={Col} controlId="formGridPhone">
-						<Form.Label>Phone</Form.Label>
-						<Form.Control name="phone" type="text" placeholder="Phone" value={phone} onChange={(e) => { setPhone(e.target.value) }}/>
-					</Form.Group>
-				</Form.Row>
-
-				<Form.Group id="formGridCheckbox">
-					<Form.Check type="checkbox" variant="dark" label="Subscribe to our news letters" />
-				</Form.Group>
-				<input type="submit" value="Login" />
+		<div className="flex-row login">
+			<Form>
+				<Form.Field>
+					<label>First Name</label>
+					<input name="firstName" type="text" placeholder="First Name" value={firstName} onChange={(e) => { setFirstName(e.target.value) }}/>
+				</Form.Field>
+				<Form.Field>
+					<label>Last Name</label>
+					<input  name="lastName" type="text" placeholder="Last Name" value={lastName} onChange={(e) => { setLastName(e.target.value) }}/>
+				</Form.Field>
+				<Form.Field>
+					<label>Email</label>
+					<input name="email" type="email" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value) }}/>
+				</Form.Field>
+				<Form.Field>
+					<label>Password</label>
+					<input type="password" placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value) }}/>
+				</Form.Field>
+				<Form.Field>
+					<label>Street name</label>
+					<input name="streetName" type="text" placeholder="Street name" value={streetName} onChange={(e) => { setStreetName(e.target.value) }}/>
+				</Form.Field>
+				<Form.Field>
+					<label>Civic number</label>
+					<input name="civicNumber" type="text" placeholder="Civic number" value={civicNumber} onChange={(e) => { setCivicNumber(e.target.value) }}/>
+				</Form.Field>
+				<Form.Field>
+					<label>Zip code</label>
+					<input name="zipCode" type="text" placeholder="Zip code" value={zipCode} onChange={(e) => { setZipCode(e.target.value) }}/>
+				</Form.Field>
+				<Form.Field>
+					<label>Phone</label>
+					<input name="phone" type="text" placeholder="Phone" value={phone} onChange={(e) => { setPhone(e.target.value) }}/>
+				</Form.Field>
+				<Form.Field>
+					<Checkbox label='I agree to the Terms and Conditions' />
+				</Form.Field>
+				<Button secondary type='submit' onClick={(e) => handleSubmit(e)}>Submit</Button>
 			</Form>
 		</div>
 	)

@@ -20,6 +20,8 @@ function login(email, password) {
 		password,
 	};
 
+	console.log(authHeader())
+
 	return instance.post(`/users/authenticate`, params)
 		//.then(handleResponse)
 		.then(response => {
