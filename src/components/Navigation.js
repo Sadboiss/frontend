@@ -16,9 +16,10 @@ const Navigation = (props) => {
 	const handleLogout = () => props.logout();
 
 	const countCartItems = () => {
-		if (cart) {
+		if (cart && cart.cartItems.length > 0) {
 			return cart.cartItems.map(x => x.quantity).reduce((z, y) => z + y);
 		}
+		return 'Empty';
 	}
 
 	return (
@@ -53,6 +54,11 @@ const Navigation = (props) => {
 							<Menu.Item>
 								<Dropdown icon={<Icon name='user' size='large' />}>
 									<Dropdown.Menu>
+										{props.user.userType === 'admin' ?
+											<Dropdown.Item text={<Link to="/admin">Admin section</Link>} />
+										:
+										null
+										}
 										<Dropdown.Item onClick={() => handleLogout()}>Logout</Dropdown.Item>
 									</Dropdown.Menu>
 								</Dropdown>

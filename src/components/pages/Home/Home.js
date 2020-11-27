@@ -1,12 +1,12 @@
 import React from 'react';
 
-const HomePageBody = () => {
+const Home = () => {
 
 	return (
 		<div className="home-container">
 			<section id="top">
 				<div className="photo black-box">
-					<img className="photo" src={require("./../../assets/img4.jpg")} alt="This is a sample"/>
+					<img className="photo" src={require("../../../assets/img4.jpg")} alt="This is a sample"/>
 				</div>
 				<div className="info black-box">
 					<h4>Who are we?</h4>
@@ -40,4 +40,4 @@ const HomePageBody = () => {
 	)
 }
 
-export default HomePageBody
+export default Home

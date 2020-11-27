@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Form, Button, Checkbox } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { userActions, cartActions } from '../../actions';
+import { userActions, cartActions } from '../../../actions';
 import './Login.scss'
 
 const Login = (props) => {

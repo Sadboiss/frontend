@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import Card from '../Card';
+import ProductCard from '../../ProductCard';
 import { connect } from 'react-redux';
-import { productActions } from '../../actions';
+import { productActions } from '../../../actions';
 import { Loader } from 'semantic-ui-react';
 import './Store.scss';
 
@@ -18,9 +18,9 @@ const Store = (props) => {
                     
                 </div>
                 <div className="products">
-                    {props.items ?
-                        props.items.map((product, index) => {
-                            return <Card product={product} key={index} />
+                    {props.products ?
+                        props.products.filter(product => product.display).map((product, index) => {
+                            return <ProductCard product={product} key={index} />
                         })
                         :
                         <p>Nothing in store</p>
@@ -33,10 +33,10 @@ const Store = (props) => {
 }
 
 const mapStateToProps = (state) => {
-    const { loading, items, error } = state.products;
+    const { loading, products, error } = state.products;
     return {
         loading,
-        items,
+        products,
         error
     };
 }

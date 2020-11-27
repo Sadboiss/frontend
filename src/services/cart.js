@@ -21,7 +21,7 @@ function addToCart(product) {
 		.then(() => {
 			toast.success('Added item to your cart!', {
 				position: "bottom-right",
-				autoClose: 400000,
+				autoClose: 2000,
 				hideProgressBar: true,
 				closeOnClick: true,
 				pauseOnHover: true,

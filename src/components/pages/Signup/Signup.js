@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Form, Button, Checkbox } from 'semantic-ui-react';
-import Utils from '../../utilities/utils';
+import Utils from '../../../utilities/utils';
 import { connect } from 'react-redux';
-import { userActions } from '../../actions';
+import { userActions } from '../../../actions';
 
 const Signup = (props) => {
 	const [firstName, setFirstName] = useState("Antoine");
