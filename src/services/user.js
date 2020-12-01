@@ -1,4 +1,5 @@
 import API from '../utilities/API';
+import Storage  from './storage';
 
 export const userService = {
 	login,
@@ -16,9 +17,15 @@ function login(email, password) {
 	return API.post(`/users/authenticate`, params)
 		//.then(handleResponse)
 		.then(response => {
+			console.log(response)
 			const user = response.data;
-			if (user.jwtToken) {
-				localStorage.setItem('user', JSON.stringify(user));
+			if (user.jwtToken && user.refreshToken) {
+				Storage.setUser(user)
+				Storage.setToken(
+					{
+						access_token: user.jwtToken, 
+						refresh_token: user.refreshToken
+					})
 			}
 			return user;
 		})

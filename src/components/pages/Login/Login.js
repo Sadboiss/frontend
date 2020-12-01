@@ -11,7 +11,6 @@ const Login = (props) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(props)
 		const { login } = props;
 		if (email && password) {
 			login(email, password);

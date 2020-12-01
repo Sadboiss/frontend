@@ -8,7 +8,6 @@ const API = axios.create({
 });
 
 API.interceptors.response.use((response) => {
-    console.log(response)
     return response;
 }, (error) => {
     if (error.response.status !== 401) {
