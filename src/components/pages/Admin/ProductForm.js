@@ -11,6 +11,7 @@ const ProductForm = (props) => {
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState(0.00);
     const [category, setCategory] = useState();
+    const [display, setDisplay] = useState(false);
     const [file, setFile] = useState(null);
     const [img, setImg] = useState(null);
     const [imgSrc, setImgSrc] = useState('https://react.semantic-ui.com/images/wireframe/image.png');
@@ -29,18 +30,17 @@ const ProductForm = (props) => {
         setName(product.name);
         setDescription(product.description);
         setPrice(product.price);
+        setDisplay(product.display);
         setImg(product.image);
         setImgSrc(`data:image/jpeg;base64,${product.image}`)
     }
 
     const options = () => {
-        console.log(props)
         let { categories, product } = props;
         if(categories) {
            return categories.map(category => {
                 return ( 
                     { 
-                        selected: product && product.category.name === category.name,
                         key: category.id,
                         text: category.name,
                         value: category.name
@@ -49,6 +49,12 @@ const ProductForm = (props) => {
             })
         }
         return [];
+    }
+
+    const defaultValue = () => {
+        let { product } = props;
+        if(product)
+            return product.category.name;
     }
 
     const handleSubmit = (e) => {
@@ -65,6 +71,7 @@ const ProductForm = (props) => {
         data.append("Description", description);
         data.append("Price", price)
         data.append("File", file);
+        data.append("Display", display)
         data.append("Image", img);
         data.append("CategoryId", props.categories.find(x => x.name === category).id);
 
@@ -130,6 +137,7 @@ const ProductForm = (props) => {
                         placeholder='Category'
                         onChange={(e, { value }) => setCategory(value)}
                         search
+                        defaultValue={defaultValue()}
                         searchInput={{ id: 'form-select-control-category' }}
                     />
                     <Form.Field>
@@ -140,7 +148,7 @@ const ProductForm = (props) => {
                 </Form>
             </Modal.Content>
             <Modal.Actions>
-                <Button type="submit" onClick={(e) => handleSubmit(e)} positive>{mode}</Button>
+                <Button color='black' type="submit" onClick={(e) => handleSubmit(e)}>{mode}</Button>
             </Modal.Actions>
         </>
     );

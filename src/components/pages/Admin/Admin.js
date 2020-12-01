@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Checkbox, Table, Image, Loader } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { productActions, categoryActions } from '../../../actions';
@@ -8,23 +8,22 @@ import RemoveProductModal from './RemoveProductModal';
 import './Admin.scss';
 
 const Admin = (props) => {
-
 	useEffect(() => {
 		props.getAllCategories();
 		props.getAllProducts();
 	}, []);
 
-	const handleChange = (event, data) => {
+	const handleChange = async (event, data) => {
 		let product = JSON.parse(data.value);
 		product.display = data.checked;
-		props.updateDisplay(product)
+		props.updateDisplay(product);
 	}
 
 	const row = (product, index) => {
 		return (
 			<Table.Row key={index}>
 				<Table.Cell collapsing>
-					<Checkbox value={JSON.stringify(product)} checked={product.display} slider onChange={(event, data) => handleChange(event, data)}/>
+					<Checkbox value={JSON.stringify(product)} checked={product.display} slider onChange={(event, data) => handleChange(event, data)} />
 				</Table.Cell>
 				<Table.Cell>{product.id}</Table.Cell>
 				<Table.Cell>{product.name}</Table.Cell>
@@ -32,7 +31,7 @@ const Admin = (props) => {
 				<Table.Cell><Image src={`data:image/jpeg;base64,${product.image}`} size='tiny' /></Table.Cell>
 				<Table.Cell>{product.category.name}</Table.Cell>
 				<Table.Cell className="action-btns" textAlign="center">
-					<EditProductModal product={product}/>
+					<EditProductModal product={product} />
 					<RemoveProductModal product={product} />
 				</Table.Cell>
 			</Table.Row>
@@ -54,21 +53,16 @@ const Admin = (props) => {
 					</Table.Row>
 				</Table.Header>
 				<Table.Body>
-					{props.loading ? 
+					{!props.loaded ?
 						<Table.Row>
 							<Table.Cell collapsing>
 								<Loader active />
 							</Table.Cell>
 						</Table.Row>
 						:
-						null
+						props.products.map((product, index) => { return row(product, index) })
 					}
-					{props.loaded ?
-						props.products.map((product, index) => {return row(product, index)})
-						:
-						null
-					}
-				</Table.Body>	
+				</Table.Body>
 			</Table>
 			<AddProductModal />
 		</div>
@@ -78,9 +72,8 @@ const Admin = (props) => {
 }
 
 const mapStateToProps = (state) => {
-	const { loading, loaded, products } = state.products;
+	const { loaded, products } = state.products;
 	return {
-		loading,
 		loaded,
 		products
 	};

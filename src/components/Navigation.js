@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Dropdown, Icon, Menu } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
@@ -6,20 +6,30 @@ import { userActions } from '../actions';
 import './Navigation.scss';
 
 const Navigation = (props) => {
-
-	const [cart, setCart] = useState();
-
-	useEffect(() => {
-		setCart(JSON.parse(localStorage.getItem('cart')))
-	}, [])
-
 	const handleLogout = () => props.logout();
 
 	const countCartItems = () => {
+		let cart = props.cart;
 		if (cart && cart.cartItems.length > 0) {
 			return cart.cartItems.map(x => x.quantity).reduce((z, y) => z + y);
 		}
-		return 'Empty';
+		return '0';
+	}
+
+	const shoppingCartLogo = () => {
+		let count = countCartItems();
+		return (
+			<div className="shopping-cart-logo-wrapper">
+				{count > 0 ?
+					<div className="items-count">
+						<span>{count}</span>
+					</div>
+					:
+					null
+				}
+				<Icon name='shopping cart' size='large' />
+			</div>
+		)
 	}
 
 	return (
@@ -32,7 +42,7 @@ const Navigation = (props) => {
 					<Link to="/store" className="nav-link">Store</Link>
 				</Menu.Item>
 				<Menu.Menu position='right'>
-					{!props.loggedIn ?
+					{!props.user ?
 						<>
 							<Menu.Item>
 								<Link to="/signup" className="nav-link">Signup</Link>
@@ -44,7 +54,7 @@ const Navigation = (props) => {
 						:
 						<>
 							<Menu.Item>
-								<Dropdown icon={<Icon name='shopping cart' size='large' />}>
+								<Dropdown icon={shoppingCartLogo()}>
 									<Dropdown.Menu>
 										<Dropdown.Item text={`Cart Items: ${countCartItems()}`} />
 										<Dropdown.Item text={<Link to="/cart">See All</Link>} />
@@ -56,8 +66,8 @@ const Navigation = (props) => {
 									<Dropdown.Menu>
 										{props.user.userType === 'admin' ?
 											<Dropdown.Item text={<Link to="/admin">Admin section</Link>} />
-										:
-										null
+											:
+											null
 										}
 										<Dropdown.Item onClick={() => handleLogout()}>Logout</Dropdown.Item>
 									</Dropdown.Menu>
@@ -72,10 +82,11 @@ const Navigation = (props) => {
 }
 
 const mapStateToProps = (state) => {
-	const { loggedIn, user } = state.authentication;
+	const { user } = state.authentication;
+	const { cart } = state.carts
 	return {
-		loggedIn,
-		user
+		user,
+		cart
 	};
 }
 

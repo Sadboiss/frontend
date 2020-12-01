@@ -11,11 +11,10 @@ const Login = (props) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
-		const { login, getCart } = props;
+		console.log(props)
+		const { login } = props;
 		if (email && password) {
 			login(email, password);
-			getCart();
 		}
 	}
 
@@ -53,8 +52,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		login: (email, password) => dispatch(userActions.login(email, password)),
-		getCart: () => dispatch(cartActions.getCart())
+		login: (email, password) => dispatch(userActions.login(email, password))
 	}
 };
 

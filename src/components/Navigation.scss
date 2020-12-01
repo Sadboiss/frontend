@@ -7,10 +7,24 @@
         font-size: 1.5em;
         color: #ffffff;
     }
-    a {
-        font-weight: 500;
-    }
-    .logo {
-        font-size: x-large;
+
+    .shopping-cart-logo-wrapper {
+        display: flex;
+        flex-direction: column;
+
+        .items-count {
+            position: absolute;
+            border-radius: 20%;
+            background: red;
+            padding: 2px;
+            top: -8px; 
+            right: 0px;
+
+            span {
+                font-size: 12px;
+                line-height: 16px;
+                color: #ffffff;
+            }
+        }
     }
 }

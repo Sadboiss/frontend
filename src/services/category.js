@@ -1,18 +1,11 @@
-import { authHeader } from '../helpers/auth-header';
-import axios from 'axios';
-
-const instance = axios.create({
-	baseURL: 'http://localhost:5000',
-	timeout: 1000,
-	headers: authHeader()
-});
+import API from '../utilities/API';
 
 export const categoryService = {
 	getAll
 };
 
 function getAll() {
-	return instance.get('/categories')
+	return API.get('/categories')
 		.then(response => {
 			return response.data;
 		})

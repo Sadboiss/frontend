@@ -1,11 +1,4 @@
-import { authHeader } from '../helpers/auth-header';
-import axios from 'axios';
-
-const instance = axios.create({
-	baseURL: 'http://localhost:5000',
-	timeout: 1000,
-	headers: authHeader()
-});
+import API from '../utilities/API';
 
 export const userService = {
 	login,
@@ -20,9 +13,7 @@ function login(email, password) {
 		password,
 	};
 
-	console.log(authHeader())
-
-	return instance.post(`/users/authenticate`, params)
+	return API.post(`/users/authenticate`, params)
 		//.then(handleResponse)
 		.then(response => {
 			const user = response.data;
@@ -37,7 +28,7 @@ function login(email, password) {
 }
 
 function signup(params) {
-	return instance.post(`/users/account-creation`, params)
+	return API.post(`/users/account-creation`, params)
 		//.then(handleResponse)
 		.then(response => {
 			const user = response.data;
@@ -53,10 +44,10 @@ function logout() {
 }
 
 function getAll() {
-	return instance.get(`/users`)
+	return API.get(`/users`)
 	//.then(handleResponse);
 	.then(response => {
-		console.log(response)
+		return response.data
 	})
 	.catch((error) => {
 		return Promise.reject(error.response.data.message)

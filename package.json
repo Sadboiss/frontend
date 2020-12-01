@@ -73,6 +73,7 @@
     "pino-colada": "^1.4.5",
     "postcss-loader": "^4.0.4",
     "precss": "^4.0.0",
+    "react-async-script-loader": "^0.3.0",
     "react-toastify": "^6.1.0",
     "sass-loader": "^10.1.0",
     "semantic-ui-react": "^2.0.1",

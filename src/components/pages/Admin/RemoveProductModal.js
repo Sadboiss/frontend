@@ -15,7 +15,7 @@ const RemoveProductModal = (props) => {
     const trigger = () => {
         return (
             <a>
-                <Icon color="red" size="big" name='delete' />
+                <Icon color="red" size="big" name='trash' />
             </a>
         )
     }
@@ -27,18 +27,17 @@ const RemoveProductModal = (props) => {
             onClose={() => setOpen(false)}
             trigger={trigger()}
         >
-            <Header icon='archive' content='Archive Old Messages' />
+            <Header icon='trash' content='Delete Product' />
             <Modal.Content>
                 <p>
-                    Your inbox is getting full, would you like us to enable automatic
-                    archiving of old messages?
+                    Are you sure you want to remove this product? You can always choose to not display it instead.
                 </p>
             </Modal.Content>
             <Modal.Actions>
                 <Button color='red' onClick={() => setOpen(false)}>
                     <Icon name='remove' /> No
                 </Button>
-                <Button color='green'  onClick={() => handleRemove()}>
+                <Button color='black'  onClick={() => handleRemove()}>
                     <Icon name='checkmark' /> Yes
                 </Button>
             </Modal.Actions>

@@ -1,4 +1,5 @@
 import { productConstants } from '../constants/product';
+import { cartActions } from '../actions';
 import { productService } from '../services/product';
 
 const getAll = () => {
@@ -17,10 +18,14 @@ const addOrUpdate = (product) => {
 	return dispatch => {
 		dispatch({ type: productConstants.ADD_REQUEST, product });
 
-		productService.addOrUpdate(product).then(
-			(payload) => dispatch({ type: productConstants.ADD_SUCCESS, payload }),
-			(error) => dispatch({ type: productConstants.ADD_FAILURE, error })
-		);
+		productService.addOrUpdate(product)
+			.then(
+				(payload) => {
+					dispatch({ type: productConstants.ADD_SUCCESS, payload })
+					dispatch(getAll())
+				},
+				(error) => dispatch({ type: productConstants.ADD_FAILURE, error })
+			)
 	};
 }
 
@@ -30,7 +35,10 @@ const updateDisplay = (product) => {
 
 		productService.updateDisplay(product)
 			.then(
-				(payload) => dispatch({ type: productConstants.UPDATE_SUCCESS, payload }),
+				(payload) => {
+					dispatch({ type: productConstants.UPDATE_SUCCESS, payload })
+					dispatch(getAll())
+				},
 				(error) => dispatch({ type: productConstants.UPDATE_FAILURE, error })
 			)
 	};
@@ -40,7 +48,11 @@ const remove = (product) => {
 	return dispatch => {
 		dispatch({ type: productConstants.REMOVE_REQUEST, product });
 		productService.remove(product).then(
-			() => dispatch({ type: productConstants.REMOVE_SUCCESS }),
+			() => {
+				dispatch({ type: productConstants.REMOVE_SUCCESS })
+				dispatch(getAll())
+				dispatch(cartActions.getCart())
+			},
 			(error) => dispatch({ type: productConstants.REMOVE_FAILURE }, error)
 		)
 	}

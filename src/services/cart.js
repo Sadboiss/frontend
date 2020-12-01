@@ -1,12 +1,5 @@
-import { authHeader } from '../helpers/auth-header';
+import API from '../utilities/API';
 import { toast } from 'react-toastify';
-import axios from 'axios';
-
-const instance = axios.create({
-	baseURL: 'http://localhost:5000',
-	timeout: 1000,
-	headers: authHeader()
-});
 
 export const cartService = {
 	addToCart,
@@ -14,11 +7,11 @@ export const cartService = {
 };
 
 function addToCart(product) {
-	return instance.post(`/shoppingcarts/${JSON.parse(localStorage.getItem('user')).id}/add/${product.id}`)
+	return API.post(`/shoppingcarts/${JSON.parse(localStorage.getItem('user')).id}/add/${product.id}`)
 		.then(response => {
 			return response.data;
 		})
-		.then(() => {
+		.then((data) => {
 			toast.success('Added item to your cart!', {
 				position: "bottom-right",
 				autoClose: 2000,
@@ -28,10 +21,7 @@ function addToCart(product) {
 				draggable: true,
 				progress: 0,
 			});
-		})
-		.finally(() => {
-			//window.location.reload()
-			getCart();
+			return data
 		})
 		.catch(error => {
 			return Promise.reject(error.response.data.message)
@@ -39,7 +29,7 @@ function addToCart(product) {
 }
 
 function getCart() {
-	return instance.get(`/shoppingcarts/${JSON.parse(localStorage.getItem('user')).id}`)
+	return API.get(`/shoppingcarts/${JSON.parse(localStorage.getItem('user')).id}`)
 		.then(response => {
 			let cart = response.data;
 			if(cart) {

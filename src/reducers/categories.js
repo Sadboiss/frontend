@@ -7,7 +7,6 @@ export function categories(state = {}, action) {
         loading: true
       };
     case categoryConstants.GETALL_SUCCESS:
-      console.log(action)
       return {
         loaded: true,
         categories: action.payload

@@ -1,12 +1,5 @@
-import { authHeader } from '../helpers/auth-header';
+import API from '../utilities/API';
 import { toast } from 'react-toastify';
-import axios from 'axios';
-
-const instance = axios.create({
-	baseURL: 'http://localhost:5000',
-	timeout: 1000,
-	headers: authHeader()
-});
 
 export const productService = {
 	getAll,
@@ -16,7 +9,7 @@ export const productService = {
 };
 
 function getAll() {
-	return instance.get('/products')
+	return API.get('/products')
 		.then(response => {
 			return response.data;
 		})
@@ -26,11 +19,11 @@ function getAll() {
 }
 
 function addOrUpdate(data) {
-	return instance.post('/products/add-or-update', data)
+	return API.post('/products', data)
 		.then(response => {
 			return response.data;
 		})
-		.then(() => {
+		.then((response) => {
 			toast.success('Added product successfully!', {
 				position: "bottom-right",
 				autoClose: 2000,
@@ -40,6 +33,7 @@ function addOrUpdate(data) {
 				draggable: true,
 				progress: 0,
 			});
+			return response;
 		})
 		.catch(error => {
 			return Promise.reject(error.response.data.message)
@@ -47,9 +41,8 @@ function addOrUpdate(data) {
 }
 
 function updateDisplay(product) {
-	return instance.put('/products/update-display', product)
+	return API.put('/products', product)
 		.then(response => {
-			console.log(response.data)
 			return response.data;
 		})
 		.then((response) => {
@@ -70,7 +63,7 @@ function updateDisplay(product) {
 }
 
 function remove(product) {
-	return instance.delete(`/products/${product.id}`)
+	return API.delete(`/products/${product.id}`)
 		.then(response => {
 			return response.data;
 		})

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button } from 'semantic-ui-react';
+import Payment from '../../Payment'
 import './Cart.scss';
 
 const Cart = () => {
@@ -67,6 +68,9 @@ const Cart = () => {
 			<div className="checkout">
 				<p><b>Cart total : {getTotal()}$</b></p>
 				<Button secondary>Checkout</Button>
+			</div>
+			<div>
+				<Payment />
 			</div>
 		</div>
 	)
