@@ -4,18 +4,13 @@ import { authHeader } from '../helpers/auth-header';
 const API = axios.create({
     baseURL: 'http://localhost:5000',
     timeout: 1000,
+    withCredentials: true,
     headers: authHeader()
 });
 
 API.interceptors.response.use((response) => {
     return response;
 }, (error) => {
-    if (error.response.status !== 401) {
-        return new Promise((resolve, reject) => {
-            reject(error);
-        });
-    }
-
     if (error.response.status === 401) {
         API.post('/users/refresh-token')
         .then((r) => {
@@ -24,9 +19,6 @@ API.interceptors.response.use((response) => {
         		localStorage.setItem('user', JSON.stringify(user));
         	}
         })
-    }
-    if (error.response && error.response.data) {
-        return Promise.reject(error.response.data);
     }
     return Promise.reject(error.message);
 });

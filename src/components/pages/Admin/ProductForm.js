@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Form, Image, Input, TextArea, Select, Dropdown } from 'semantic-ui-react'
+import { Button, Modal, Form, Image, Input, TextArea, Select, Segment, Checkbox } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { productActions } from '../../../actions';
+import ProductSizeField from './ProductSizeField';
 
 const ProductForm = (props) => {
 
@@ -15,6 +16,7 @@ const ProductForm = (props) => {
     const [file, setFile] = useState(null);
     const [img, setImg] = useState(null);
     const [imgSrc, setImgSrc] = useState('https://react.semantic-ui.com/images/wireframe/image.png');
+    const [productSizes, setProductSizes] = useState([])
 
     useEffect(() => {
         if (!props.product)
@@ -36,11 +38,11 @@ const ProductForm = (props) => {
     }
 
     const options = () => {
-        let { categories, product } = props;
-        if(categories) {
-           return categories.map(category => {
-                return ( 
-                    { 
+        let { categories } = props;
+        if (categories) {
+            return categories.map(category => {
+                return (
+                    {
                         key: category.id,
                         text: category.name,
                         value: category.name
@@ -53,7 +55,7 @@ const ProductForm = (props) => {
 
     const defaultValue = () => {
         let { product } = props;
-        if(product)
+        if (product)
             return product.category.name;
     }
 
@@ -62,9 +64,9 @@ const ProductForm = (props) => {
 
         if (!name || !price || !category)
             return;
-                
+
         let data = new FormData();
-        if(mode === 'Edit')
+        if (mode === 'Edit')
             data.append("Id", id)
 
         data.append("Name", name);
@@ -99,65 +101,90 @@ const ProductForm = (props) => {
             }
         return false;
     }
+    const form = () => {
+        return (
+            <>
+                <Modal.Header>{mode} product</Modal.Header>
+                <Modal.Content>
+                    <Form>
+                        <Segment>
+                            <Form.Field
+                                id='form-input-name'
+                                control={Input}
+                                label='Name'
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                placeholder='Product Name'
+                            />
+                            <Form.Field
+                                id='form-input-price'
+                                control={Input}
+                                label='Price'
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
+                                placeholder='Product price'
+                                error={validatePrice()}
+                            />
+                            <Form.Field
+                                id='form-input-description'
+                                control={TextArea}
+                                label='Description'
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                placeholder='Product Description'
+                            />
+                            <Form.Field
+                                control={Select}
+                                options={options()}
+                                label={{ children: 'Category', htmlFor: 'form-select-control-category' }}
+                                placeholder='Category'
+                                onChange={(e, { value }) => setCategory(value)}
+                                search
+                                defaultValue={defaultValue()}
+                                searchInput={{ id: 'form-select-control-category' }}
+                            />
+                        </Segment>
+
+                        <Segment>
+                            <Form.Field>
+                                <label>Upload your image</label>
+                                <Input type="file" accept="image/*" onChange={(e) => preview(e)} />
+                            </Form.Field>
+                            <Image src={imgSrc} size='small' wrapped />
+                        </Segment>
+
+                        <Segment>
+                            <h4>Size Instock Quantity</h4>
+                            {props.sizes ?
+                                props.sizes.map(size => {
+                                    return (
+                                        <ProductSizeField key={size.id} size={size} list={productSizes}/>
+                                    )
+                                })
+                                :
+                                null
+                            }
+                        </Segment>
+                    </Form>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button color='black' type="submit" onClick={(e) => handleSubmit(e)}>{mode}</Button>
+                </Modal.Actions>
+            </>
+        );
+    }
 
     return (
-        <>
-            <Modal.Header>{mode} product</Modal.Header>
-            <Modal.Content>
-                <Form>
-                    <Form.Field
-                        id='form-input-name'
-                        control={Input}
-                        label='Name'
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder='Product Name'
-                    />
-                    <Form.Field
-                        id='form-input-price'
-                        control={Input}
-                        label='Price'
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                        placeholder='Product price'
-                        error={validatePrice()}
-                    />
-                    <Form.Field
-                        id='form-input-description'
-                        control={TextArea}
-                        label='Description'
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        placeholder='Product Description'
-                    />
-                    <Form.Field
-                        control={Select}
-                        options={options()}
-                        label={{ children: 'Category', htmlFor: 'form-select-control-category' }}
-                        placeholder='Category'
-                        onChange={(e, { value }) => setCategory(value)}
-                        search
-                        defaultValue={defaultValue()}
-                        searchInput={{ id: 'form-select-control-category' }}
-                    />
-                    <Form.Field>
-                        <label>Upload your image</label>
-                        <Input type="file" accept="image/*" onChange={(e) => preview(e)} />
-                    </Form.Field>
-                    <Image src={imgSrc} size='small' wrapped />
-                </Form>
-            </Modal.Content>
-            <Modal.Actions>
-                <Button color='black' type="submit" onClick={(e) => handleSubmit(e)}>{mode}</Button>
-            </Modal.Actions>
-        </>
+        form()
     );
 }
 
 const mapStateToProps = (state) => {
     const { categories } = state.categories;
+    const { sizes } = state.sizes;
     return {
-        categories
+        categories,
+        sizes
     };
 };
 

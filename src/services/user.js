@@ -19,13 +19,13 @@ function login(email, password) {
 		.then(response => {
 			console.log(response)
 			const user = response.data;
-			if (user.jwtToken && user.refreshToken) {
+			if (user.jwtToken) {
 				Storage.setUser(user)
-				Storage.setToken(
-					{
-						access_token: user.jwtToken, 
-						refresh_token: user.refreshToken
-					})
+				// Storage.setToken(
+				// 	{
+				// 		access_token: user.jwtToken, 
+				// 		refresh_token: user.refreshToken
+				// 	})
 			}
 			return user;
 		})

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Checkbox, Table, Image, Loader } from 'semantic-ui-react';
 import { connect } from 'react-redux';
-import { productActions, categoryActions } from '../../../actions';
+import { productActions, categoryActions, sizeActions } from '../../../actions';
 import AddProductModal from './AddProductModal';
 import EditProductModal from './EditProductModal';
 import RemoveProductModal from './RemoveProductModal';
@@ -9,8 +9,9 @@ import './Admin.scss';
 
 const Admin = (props) => {
 	useEffect(() => {
-		props.getAllCategories();
-		props.getAllProducts();
+		props.getSizes();
+		props.getCategories();
+		props.getProducts();
 	}, []);
 
 	const handleChange = async (event, data) => {
@@ -81,8 +82,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		getAllCategories: () => dispatch(categoryActions.getAll()),
-		getAllProducts: () => dispatch(productActions.getAll()),
+		getSizes: () => dispatch(sizeActions.getAll()),
+		getCategories: () => dispatch(categoryActions.getAll()),
+		getProducts: () => dispatch(productActions.getAll()),
 		updateDisplay: (product) => dispatch(productActions.updateDisplay(product))
 	}
 };
