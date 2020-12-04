@@ -1,10 +1,16 @@
-import React from 'react';
-import { Icon, Image, Card, Button, Label } from 'semantic-ui-react';
+import React, { useState, useEffect } from 'react';
+import { Icon, Image, Card, Label, Button, Dimmer, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { cartActions } from '../actions';
 import './ProductCard.scss';
 
 const ProductCard = (props) => {
+
+	const [inStock, setInStock] = useState(0)
+
+	useEffect(() => {
+		calcInStock();
+	}, [props.product])
 
 	const handleAction = () => {
 		if (props.product) {
@@ -12,14 +18,26 @@ const ProductCard = (props) => {
 		}
 	}
 
+	const calcInStock = () => {
+		if (props.product)
+			setInStock(props.product.productSizes.map(ps => ps.inStock).reduce((z, y) => z + y));
+	}
+
+	const isOfOutStock = () => {
+		return inStock <= 0;
+	}
+
 	return (
-		<div className="card-wrapper">
+		<div className={`card-wrapper ${isOfOutStock() ? 'dim-opacity' : null}`}>
 			<Card>
 				<Image src={`data:image/jpeg;base64,${props.product.image}`} wrapped ui={false} />
 				<Card.Content>
 					<Card.Header>{props.product.name}</Card.Header>
 					<Card.Meta>
 						<span className='date'>{props.product.category.name}</span>
+					</Card.Meta>
+					<Card.Meta>
+						<span className='date'>In stock: {inStock}</span>
 					</Card.Meta>
 					<Card.Description>
 						{props.product.description}
@@ -30,12 +48,16 @@ const ProductCard = (props) => {
 						<Icon name='dollar sign' />
 						{props.product.price}
 					</Label>
-					<a 
-						className="add-btn" 
+
+					<Button
+						className='add-btn'
+						disabled={isOfOutStock()}
 						onClick={() => handleAction()}
 					>
-						<Icon size="big" name='add to cart' />
-					</a>
+						<Button.Content>
+							<Icon size="big" name='add to cart' />
+						</Button.Content>
+					</Button>
 				</Card.Content>
 			</Card>
 		</div>

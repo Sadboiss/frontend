@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Button, Modal, Form, Image, Input, TextArea, Select, Segment, Checkbox } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { productActions } from '../../../actions';
-import ProductSizeField from './ProductSizeField';
 
 const ProductForm = (props) => {
 
@@ -16,7 +15,6 @@ const ProductForm = (props) => {
     const [file, setFile] = useState(null);
     const [img, setImg] = useState(null);
     const [imgSrc, setImgSrc] = useState('https://react.semantic-ui.com/images/wireframe/image.png');
-    const [productSizes, setProductSizes] = useState([])
 
     useEffect(() => {
         if (!props.product)
@@ -29,6 +27,7 @@ const ProductForm = (props) => {
 
     const setFields = (product) => {
         setId(product.id);
+        setCategory(defaultValue())
         setName(product.name);
         setDescription(product.description);
         setPrice(product.price);
@@ -61,7 +60,6 @@ const ProductForm = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         if (!name || !price || !category)
             return;
 
@@ -151,19 +149,6 @@ const ProductForm = (props) => {
                                 <Input type="file" accept="image/*" onChange={(e) => preview(e)} />
                             </Form.Field>
                             <Image src={imgSrc} size='small' wrapped />
-                        </Segment>
-
-                        <Segment>
-                            <h4>Size Instock Quantity</h4>
-                            {props.sizes ?
-                                props.sizes.map(size => {
-                                    return (
-                                        <ProductSizeField key={size.id} size={size} list={productSizes}/>
-                                    )
-                                })
-                                :
-                                null
-                            }
                         </Segment>
                     </Form>
                 </Modal.Content>
