@@ -25,4 +25,4 @@ const Utils = createReactClass({
 	},
 });
 
-export default Utils
+export default Utils;

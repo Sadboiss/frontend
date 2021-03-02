@@ -1,11 +1,12 @@
+@import '../variables.scss';
+
 .navigation {
     .item {
         border-radius: 0 !important;
     }
-    background: #000000 !important;
     i, .nav-link {
         font-size: 1.5em;
-        color: #ffffff;
+        color: $secondary;
     }
 
     .shopping-cart-logo-wrapper {
@@ -15,7 +16,7 @@
         .items-count {
             position: absolute;
             border-radius: 20%;
-            background: red;
+            background: $cart_items;
             padding: 2px;
             top: -8px; 
             right: 0px;
@@ -23,7 +24,7 @@
             span {
                 font-size: 12px;
                 line-height: 16px;
-                color: #ffffff;
+                color: $secondary;
             }
         }
     }

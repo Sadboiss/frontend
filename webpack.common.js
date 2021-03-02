@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
 	entry: './src/index.js',
 	devServer: {
-		port: 3001,
+		port: 3000,
 		historyApiFallback: true,
 		contentBase: path.resolve(__dirname, 'dist')
 	},
@@ -51,7 +51,7 @@ module.exports = {
 	externals: {
 		// global app config object
 		config: JSON.stringify({
-			apiUrl: 'http://localhost:5000'
+			apiUrl: 'http://localhost:5001'
 		})
 	}
 };

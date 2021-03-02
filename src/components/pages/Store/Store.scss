@@ -1,7 +1,8 @@
+@import '../../../variables.scss';
+
 .wrapper {
     display: flex;
-    
-
+    color: $secondary;
     .filters {
         min-width: 15%;
         max-width: 15%;

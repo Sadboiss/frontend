@@ -6,6 +6,7 @@ import { products } from './products';
 import { carts } from './carts';
 import { categories } from './categories';
 import { sizes } from './sizes';
+import { modal } from './modal';
 
 const rootReducer = combineReducers({
   authentication,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   products,
   carts,
   categories,
-  sizes
+  sizes,
+  modal
 });
 
 export default rootReducer;

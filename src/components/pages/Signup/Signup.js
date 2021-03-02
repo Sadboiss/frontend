@@ -32,7 +32,7 @@ const Signup = (props) => {
 		}
 	}
 	return (
-		<div className="flex-row login">
+		<div className="login">
 			<Form>
 				<Form.Field>
 					<label>First Name</label>

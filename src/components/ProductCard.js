@@ -19,6 +19,7 @@ const ProductCard = (props) => {
 	}
 
 	const calcInStock = () => {
+		console.log(props)
 		if (props.product)
 			setInStock(props.product.productSizes.map(ps => ps.inStock).reduce((z, y) => z + y));
 	}

@@ -1,0 +1,8 @@
+version: "3"
+services: 
+    sadbois_frontend:  
+        image: sadbois_frontend
+        stdin_open: true
+        ports:
+            - "3000:3000"
+    
