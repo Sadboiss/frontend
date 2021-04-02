@@ -3,7 +3,6 @@ import { authHeader } from '../helpers/auth-header';
 
 const API = axios.create({
     baseURL: 'http://localhost:5001',
-    timeout: 2000,
     withCredentials: true,
     headers: authHeader()
 });

@@ -1,20 +1,17 @@
-import React, { useEffect } from "react"
+import React from "react"
 import 'semantic-ui-css/semantic.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { connect } from 'react-redux';
 import Navigation from "./components/Navigation";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { cartActions } from './actions';
 import Home from './components/pages/Home/Home';
 import Store from './components/pages/Store/Store';
 import Cart from './components/pages/Cart/Cart';
-//import Login from './components/pages/Login/Login';
-import Signup from './components/pages/Signup/Signup';
 import Admin from './components/pages/Admin/Admin';
 import { Paper } from '@material-ui/core/';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AuthentificationModal from "./components/modals/AuthentificationModal";
+import ModalManager from "./components/modals/ModalManager";
 
 const style = {
 	root: {
@@ -25,13 +22,6 @@ const style = {
 
 
 const App = (props) => {
-
-	useEffect(() => {
-		if (props.user)
-			props.getCart()
-	}, [])
-
-
 	return (
 		<>
 			<Paper style={style}>
@@ -42,7 +32,6 @@ const App = (props) => {
 						<Route exact path="/" render={() => <Home />} />
 						<Route exact path="/store" render={() => <Store />} />
 						<Route exact path="/cart" render={() => <Cart />} />
-						<Route exact path="/signup" render={() => <Signup />} />
 						<Route exact path="/admin" render={() => <Admin />} />
 					</Switch>
 				</Router>
@@ -58,25 +47,17 @@ const App = (props) => {
 					pauseOnHover
 				/>
 			</Paper>
-			<AuthentificationModal />
+			<ModalManager />
 		</>
 	);
 }
 
 const mapStateToProps = (state) => {
 	const { user } = state.authentication;
-	const { cart } = state.carts
 	return {
-		cart,
 		user
 	};
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		getCart: () => dispatch(cartActions.getCart())
-	}
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, null)(App);
 

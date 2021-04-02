@@ -12,20 +12,35 @@ const getCart = () => {
 			);
 	};
 
-	function request() { return { type: cartConstants.GET_ITEMS_REQUEST } }
-	function success(payload) { return { type: cartConstants.GET_ITEMS_SUCCESS, payload } }
-	function failure(error) { return { type: cartConstants.GET_ITEMS_FAILURE, error } }
+	function request() { return { type: cartConstants.GET_CART_REQUEST } }
+	function success(payload) { return { type: cartConstants.GET_CART_SUCCESS, payload } }
+	function failure(error) { return { type: cartConstants.GET_CART_FAILURE, error } }
 }
 
-const addToCart = (product) => {
+// const getItemsCount = () => {
+// 	return dispatch => {
+// 		dispatch(request());
+// 		cartService.getItemsCount()
+// 			.then(
+// 				payload => dispatch(success(payload)),
+// 				error => dispatch(failure(error))
+// 			);
+// 	};
+
+// 	function request() { return { type: cartConstants.GET_ITEMS_COUNT_REQUEST } }
+// 	function success(payload) { return { type: cartConstants.GET_ITEMS_COUNT_SUCCESS, payload } }
+// 	function failure(error) { return { type: cartConstants.GET_ITEMS_COUNT_FAILURE, error } }
+// }
+
+const addToCart = (cart, product) => {
 	return dispatch => {
 		dispatch(request({product}));
 
-		cartService.addToCart(product)
+		cartService.addToCart(cart, product)
 			.then(
 				product => {
-					dispatch(success(product))
-					dispatch(getCart())
+					dispatch(success(cart, product))
+					//dispatch(getItemsCount())
 				},
 				error => dispatch(failure(error))
 			);
@@ -39,5 +54,6 @@ const addToCart = (product) => {
 
 export const cartActions = {
 	addToCart,
-	getCart
+	getCart,
+	//getItemsCount
 };

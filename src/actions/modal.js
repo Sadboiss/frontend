@@ -1,8 +1,14 @@
 import { modalConstants } from '../constants';
 
-const open = (modalType) => {
+const open = (modalType, modalProps) => {
+    
+    modalProps = modalProps ? Object.assign(modalProps, { open: true }) : { open: true };
     return dispatch => {
-        dispatch({ type: modalConstants.SHOW_MODAL, modalType })
+        dispatch({ 
+            type: modalConstants.SHOW_MODAL, 
+            modalType,
+            modalProps
+        })
     }
 }
 

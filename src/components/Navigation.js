@@ -47,7 +47,7 @@ const Navigation = (props) => {
 					<Link href="store" color="inherit">Store</Link>
 				</Typography>
 				{!props.user ?
-					<Button color="inherit" onClick={() => props.open()}>Login</Button>
+					<Button color="inherit" onClick={() => props.open('AUTHENTICATE')}>Login</Button>
 					:
 					<Grid
 						container
@@ -55,7 +55,6 @@ const Navigation = (props) => {
 						justify="flex-end"
 						alignItems="center"
 					>
-
 						<CartMenu />
 						<AccountMenu />
 					</Grid>
@@ -63,62 +62,13 @@ const Navigation = (props) => {
 			</Toolbar>
 		</AppBar >
 	);
-	// return (
-	// 	<>
-	// 		<Menu className="navigation" secondary>
-	// 			<Menu.Item>
-	// 				<Link to="/" className="nav-link logo">sadbois</Link>
-	// 			</Menu.Item>
-	// 			<Menu.Item>
-	// 				<Link to="/store" className="nav-link">Store</Link>
-	// 			</Menu.Item>
-	// 			<Menu.Menu position='right'>
-	// 				{!props.user ?
-	// 					<>
-	// 						<Menu.Item>
-	// 							<Link to="/signup" className="nav-link">Signup</Link>
-	// 						</Menu.Item>
-	// 						<Menu.Item>
-	// 							<Link to="/login" className="nav-link">Login</Link>
-	// 						</Menu.Item>
-	// 					</>
-	// 					:
-	// 					<>
-	// 						<Menu.Item>
-	// 							<Dropdown icon={shoppingCartLogo()}>
-	// 								<Dropdown.Menu>
-	// 									<Dropdown.Item text={`Cart Items: ${countCartItems()}`} />
-	// 									<Dropdown.Item text={<Link to="/cart">See All</Link>} />
-	// 								</Dropdown.Menu>
-	// 							</Dropdown>
-	// 						</Menu.Item>
-	// 						<Menu.Item>
-	// 							<Dropdown icon={<Icon name='user' size='large' />}>
-	// 								<Dropdown.Menu>
-	// 									{props.user.userType === 'admin' ?
-	// 										<Dropdown.Item text={<Link to="/admin">Admin section</Link>} />
-	// 										:
-	// 										null
-	// 									}
-	// 									<Dropdown.Item onClick={() => handleLogout()}>Logout</Dropdown.Item>
-	// 								</Dropdown.Menu>
-	// 							</Dropdown>
-	// 						</Menu.Item>
-	// 					</>
-	// 				}
-	// 			</Menu.Menu>
-	// 		</Menu>
-	// 	</>
-	// );
 }
 
 const mapStateToProps = (state) => {
 	const { user } = state.authentication;
-	const { cart } = state.carts;
 	const { modalType } = state.modal;
 	return {
 		user,
-		cart,
 		modalType
 	};
 }
@@ -126,7 +76,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		logout: () => dispatch(userActions.logout()),
-		open: () => dispatch(modalActions.open())
+		open: (modalType, modalProps) => dispatch(modalActions.open(modalType, modalProps))
 	}
 };
 

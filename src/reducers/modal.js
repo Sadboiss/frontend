@@ -12,9 +12,8 @@ export function modal(state = initialState, action) {
     case modalConstants.SHOW_MODAL:
       return {
         ...state,
-        modalProps: {
-          open: true
-        }
+        modalType: action.modalType,
+        modalProps: action.modalProps
       }
 
     case modalConstants.HIDE_MODAL:

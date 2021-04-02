@@ -1,80 +1,85 @@
 import React, { useState, useEffect } from 'react';
-import { Icon, Image, Card, Label, Button, Dimmer, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
 import { cartActions } from '../actions';
-import './ProductCard.scss';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
-const ProductCard = (props) => {
+const useStyles = makeStyles({
+    root: {
+        maxWidth: 345,
+    },
+    media: {
+        height: 140,
+    },
+});
 
-	const [inStock, setInStock] = useState(0)
+const ProductCard = ({ cart, product, addToCart }) => {
+    const [inStock, setInStock] = useState(0);
 
-	useEffect(() => {
-		calcInStock();
-	}, [props.product])
+    const classes = useStyles();
 
-	const handleAction = () => {
-		if (props.product) {
-			props.addToCart(props.product);
-		}
-	}
+    useEffect(() => {
+        //calcInStock();
+    }, [product])
 
-	const calcInStock = () => {
-		console.log(props)
-		if (props.product)
-			setInStock(props.product.productSizes.map(ps => ps.inStock).reduce((z, y) => z + y));
-	}
+    const handleAction = () => {
+        if (product) {
+            addToCart(cart, product);
+        }
+    }
 
-	const isOfOutStock = () => {
-		return inStock <= 0;
-	}
+    const calcInStock = () => {
+        if (product)
+            setInStock(product.productSizes.map(ps => ps.inStock).reduce((z, y) => z + y));
+    }
 
-	return (
-		<div className={`card-wrapper ${isOfOutStock() ? 'dim-opacity' : null}`}>
-			<Card>
-				<Image src={`data:image/jpeg;base64,${props.product.image}`} wrapped ui={false} />
-				<Card.Content>
-					<Card.Header>{props.product.name}</Card.Header>
-					<Card.Meta>
-						<span className='date'>{props.product.category.name}</span>
-					</Card.Meta>
-					<Card.Meta>
-						<span className='date'>In stock: {inStock}</span>
-					</Card.Meta>
-					<Card.Description>
-						{props.product.description}
-					</Card.Description>
-				</Card.Content>
-				<Card.Content extra >
-					<Label className="price">
-						<Icon name='dollar sign' />
-						{props.product.price}
-					</Label>
+    const isOfOutStock = () => {
+        return inStock <= 0;
+    }
 
-					<Button
-						className='add-btn'
-						disabled={isOfOutStock()}
-						onClick={() => handleAction()}
-					>
-						<Button.Content>
-							<Icon size="big" name='add to cart' />
-						</Button.Content>
-					</Button>
-				</Card.Content>
-			</Card>
-		</div>
-	)
+    return (
+        <Card className={classes.root}>
+            <CardActionArea>
+                <CardMedia
+                    className={classes.media}
+                    image={`data:image/jpeg;base64,${product.productImages[0].imageData}`}
+                    title={product.name}
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                        {product.name}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        {product.description}
+                    </Typography>
+                </CardContent>
+            </CardActionArea>
+            <CardActions>
+                <Button size="small" color="primary" onClick={() => handleAction()}>
+                    Add to cart
+                    </Button>
+            </CardActions>
+        </Card>
+    )
 }
 
 const mapStateToProps = (state) => {
-	return {
-
-	};
-}
+    const { cart } = state.carts
+    return {
+        cart
+    }
+};
 
 const mapDispatchToProps = (dispatch) => {
-	return {
-		addToCart: (product) => dispatch(cartActions.addToCart(product)),
-	}
+    return {
+        addToCart: (cart, product) => dispatch(cartActions.addToCart(cart, product)),
+    }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);

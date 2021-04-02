@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid } from '@material-ui/core'
-import Login from '../../modals/Login';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 

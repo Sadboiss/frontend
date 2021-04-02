@@ -14,12 +14,14 @@ function getAll() {
 			return response.data;
 		})
 		.catch(error => {
-			console.log(error)
 			return Promise.reject(error.response.data.message)
 		})
 }
 
 function addOrUpdate(data) {
+	for (var value of data.values()) {
+		console.log(value);
+	 }
 	return API.post('/products', data)
 		.then(response => {
 			return response.data;

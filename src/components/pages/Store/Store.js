@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import ProductCard from '../../ProductCard';
+import { Grid } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { productActions } from '../../../actions';
 import { Loader } from 'semantic-ui-react';
-import './Store.scss';
 
 const Store = (props) => {
     useEffect(() => {
@@ -13,20 +13,25 @@ const Store = (props) => {
     return (
         <>
             <Loader active={props.loading} inline="centered" />
-            <div className="wrapper">
-                <div className="filters">
-                    
-                </div>
-                <div className="products">
-                    {props.products ?
-                        props.products.filter(product => product.display).map((product, index) => {
-                            return <ProductCard product={product} key={index} />
-                        })
-                        :
-                        <p>Nothing in store</p>
-                    }
-                </div>
-            </div>
+            <Grid
+                container
+                direction="row"
+                justify="space-evenly"
+                alignItems="center"
+            >
+
+                {props.products ?
+                    props.products.filter(product => product.display).map((product, index) => {
+                        return (
+                            <Grid key={index} item xs>
+                                <ProductCard product={product}/>
+                            </Grid>
+                        )
+                    })
+                    :
+                    <p>Nothing in store</p>
+                }
+            </Grid>
         </>
     )
 

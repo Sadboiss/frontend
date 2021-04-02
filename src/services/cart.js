@@ -3,11 +3,12 @@ import { toast } from 'react-toastify';
 
 export const cartService = {
 	addToCart,
-	getCart
+	getCart,
+	getItemsCount
 };
 
-function addToCart(product) {
-	return API.post(`/shoppingcarts/${JSON.parse(localStorage.getItem('user')).id}/add/${product.id}`)
+function addToCart(cart, product) {
+	return API.post(`/shoppingcarts/${cart.id}/add/${product.id}`)
 		.then(response => {
 			return response.data;
 		})
@@ -39,5 +40,15 @@ function getCart() {
 		})
 		.catch(error => {
 			return Promise.reject(error.response.data.message)
+		})
+}
+
+function getItemsCount() {
+	return API.get(`/shoppingcarts/${JSON.parse(localStorage.getItem('user')).id}/count`)
+		.then(response => {
+			return response.data;
+		})
+		.catch(error => {
+			return Promise.reject(error.response.data.message);
 		})
 }

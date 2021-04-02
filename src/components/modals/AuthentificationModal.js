@@ -8,7 +8,7 @@ import RegisterForm from '../forms/RegisterForm';
 
 
 const AuthentificationModal = (props) => {
-    const [tabIndex, setTabIndex] = React.useState('1');
+    const [tabIndex, setTabIndex] = useState('1');
 
     const handleChange = (event, newValue) => {
         setTabIndex(newValue);
@@ -59,7 +59,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        open: () => dispatch(modalActions.open()),
         close: () => dispatch(modalActions.close()),
         login: (email, password) => dispatch(userActions.login(email, password))
     }
